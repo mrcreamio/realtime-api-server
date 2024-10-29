@@ -1,8 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
 
 app = FastAPI()
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust to your frontend's origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Google Apps Script Web App URL
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwHxa-MDtZCZo244bWc90AppFCa5oA7YT1ZYEaJbG90OViT109YtLjeMBstB7un7V8B/exec"
@@ -14,7 +24,7 @@ class AppointmentData(BaseModel):
     reason: str
 
 
-@app.post("/send_appointment/")
+@app.post("/send_appointment")
 async def send_appointment(data: AppointmentData):
     # Send POST request to Google Apps Script with follow_redirects
     async with httpx.AsyncClient() as client:
