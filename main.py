@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Google Apps Script Web App URL
-GOOGLE_SCRIPT_URL_SHEET = "https://script.google.com/macros/s/AKfycbwHxa-MDtZCZo244bWc90AppFCa5oA7YT1ZYEaJbG90OViT109YtLjeMBstB7un7V8B/exec"
+GOOGLE_SCRIPT_URL_SHEET = "https://script.google.com/macros/s/AKfycbyHtzFow7AGolUqkf9S2eK6TcAGD_9-H_8IGVUicvH9qqcivxSZGx9Bu5toIviWqbyg/exec"
 # GOOGLE_SCRIPT_URL_CALENDAR = "https://script.google.com/macros/s/AKfycbxDOAox60T2aekE-8E6VuTDTypooxDh0tDbP3MFNag2A-CGo8cz3zYLAHmKs7SzLb2eGQ/exec"
 GOOGLE_SCRIPT_URL_CALENDAR = "https://script.google.com/macros/s/AKfycbzADEAp_0Rge4ET7g4O5dTFJwquBHrZwxT83aLhSN5zkUFdzxyd86vtwev96mgpN582/exec"
 
