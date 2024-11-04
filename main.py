@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import httpx
 from typing import Optional
 from datetime import datetime, timedelta
+import pytz
 
 app = FastAPI()
 
@@ -98,11 +99,26 @@ class EventData(BaseModel):
 
 @app.post("/create_calendar_event")
 async def create_calendar_event(data: EventData):
+    # Use GMT+1 timezone
+    timezone = pytz.timezone('Etc/GMT-1')  # Or use 'Europe/Paris'
+
+    # Parse startTime and make it timezone-aware
+    start_datetime = datetime.fromisoformat(data.startTime)
+    start_datetime = timezone.localize(start_datetime)
+
     # If endTime is not provided, assume a 30-minute event
     if not data.endTime:
-        start_datetime = datetime.fromisoformat(data.startTime)
         end_datetime = start_datetime + timedelta(minutes=30)
         data.endTime = end_datetime.isoformat()
+    else:
+        # Parse endTime and make it timezone-aware
+        end_datetime = datetime.fromisoformat(data.endTime)
+        end_datetime = timezone.localize(end_datetime)
+        data.endTime = end_datetime.isoformat()
+
+    # Update the data object
+    data.startTime = start_datetime.isoformat()
+    data.endTime = end_datetime.isoformat()
 
     # Prepare the data to send
     event_data = data.dict()
